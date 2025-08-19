@@ -17,7 +17,7 @@ You can access [predefined environment variables](https://docs.gitlab.com/ee/ci/
 ```csharp
 GitLab GitLab => GitLab.Instance;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("Branch = {Branch}", GitLab.CommitRefName);

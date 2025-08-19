@@ -12,7 +12,7 @@ The easiest way to load your solution is to create a new `Solution` field, add t
 [Solution]
 readonly Solution Solution;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("Solution path = {Value}", Solution);

@@ -15,7 +15,7 @@ You can access [predefined environment variables](https://wiki.jenkins.io/displa
 ```csharp
 Jenkins Jenkins => Jenkins.Instance;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("Branch = {Branch}", Jenkins.GitBranch);

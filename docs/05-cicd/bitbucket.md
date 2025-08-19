@@ -15,7 +15,7 @@ You can access [predefined environment variables](https://support.atlassian.com/
 ```csharp
 Bitbucket Bitbucket => Bitbucket.Instance;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("Branch = {Branch}", Bitbucket.Branch);

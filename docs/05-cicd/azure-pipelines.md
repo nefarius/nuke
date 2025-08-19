@@ -17,7 +17,7 @@ You can access [predefined environment variables](https://docs.microsoft.com/en-
 ```csharp
 AzurePipelines AzurePipelines => AzurePipelines.Instance;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("Branch = {Branch}", AzurePipelines.SourceBranch);
@@ -126,7 +126,7 @@ Whenever you make changes to the attribute, you have to [run the build](../01-ge
 If your targets produce artifacts, like packages or coverage reports, you can publish those directly from the target definition:
 
 ```csharp
-Target Pack => _ => _
+TargetX Pack => _ => _
     .Produces(PackagesDirectory / "*.nupkg")
     .Executes(() => { /* Implementation */ });
 ```
@@ -194,7 +194,7 @@ class Build : NukeBuild
 {
     AzurePipelines AzurePipelines => AzurePipelines.Instance;
 
-    Target Request => _ => _
+    TargetX Request => _ => _
         .Executes(() =>
         {
             Log.Information("Access Token = {Token}", AzurePipelines.AccessToken);

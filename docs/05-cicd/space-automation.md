@@ -18,7 +18,7 @@ You can access [predefined environment variables](https://www.jetbrains.com/help
 ```csharp
 SpaceAutomation SpaceAutomation => SpaceAutomation.Instance;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("Branch = {Branch}", SpaceAutomation.GitBranch);

@@ -17,7 +17,7 @@ You can access [predefined environment variables](https://www.appveyor.com/docs/
 ```csharp
 AppVeyor AppVeyor => AppVeyor.Instance;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("Branch = {Branch}", AppVeyor.RepositoryBranch);
@@ -105,7 +105,7 @@ Whenever you make changes to the attribute, you have to [run the build](../01-ge
 If your targets produce artifacts, like packages or coverage reports, you can publish those directly from the target definition:
 
 ```csharp
-Target Pack => _ => _
+TargetX Pack => _ => _
     .Produces(PackagesDirectory / "*.nupkg")
     .Executes(() => { /* Implementation */ });
 ```

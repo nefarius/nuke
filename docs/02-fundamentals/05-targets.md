@@ -2,7 +2,7 @@
 title: Target Definitions
 ---
 
-Inside a `Build` class, you can define your build steps as `Target` properties. The implementation for a build step is provided as a lambda function through the `Executes` method: 
+Inside a `Build` class, you can define your build steps as `TargetX` properties. The implementation for a build step is provided as a lambda function through the `Executes` method: 
 
 <Tabs>
   <TabItem value="regular" label="Regular Targets">
@@ -12,7 +12,7 @@ class Build : NukeBuild
 {
     public static int Main() => Execute<Build>();
 
-    Target MyTarget => _ => _
+    TargetX MyTargetX => _ => _
         .Executes(() =>
         {
             Console.WriteLine("Hello!");
@@ -29,7 +29,7 @@ class Build : NukeBuild
 {
     public static int Main() => Execute<Build>();
 
-    Target MyTarget => _ => _
+    TargetX MyTargetX => _ => _
         .Executes(async () =>
         {
             await Console.Out.WriteLineAsync("Hello!");
@@ -58,13 +58,13 @@ Define that target `A` must run before target `B` unless `A` is skipped:
 ```csharp title="Build.cs"
 class Build : NukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         // highlight-start
         .DependentFor(B)      // Choose this...
         // highlight-end
         .Executes(() => { });
 
-    Target B => _ => _
+    TargetX B => _ => _
         // highlight-start
         .DependsOn(A)         // ...or this!
         // highlight-end
@@ -82,13 +82,13 @@ Define that target `A` runs before target `B` if both are scheduled:
 ```csharp title="Build.cs"
 class Build : NukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         // highlight-start
         .Before(B)            // Choose this...
         // highlight-end
         .Executes(() => { });
 
-    Target B => _ => _
+    TargetX B => _ => _
         // highlight-start
         .After(A)             // ...or this!
         // highlight-end
@@ -107,13 +107,13 @@ Define that target `A` invokes target `B` once it completes:
 ```csharp title="Build.cs"
 class Build : NukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         // highlight-start
         .Triggers(B)          // Choose this...
         // highlight-end
         .Executes(() => { });
 
-    Target B => _ => _
+    TargetX B => _ => _
         // highlight-start
         .TriggeredBy(A)       // ...or this!
         // highlight-end
@@ -141,13 +141,13 @@ The execution is nondeterministic between `A->B->C` and `B->A->C`. This isn't ne
 ```csharp title="Build.cs"
 class Build : NukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         .Executes(() => { });
 
-    Target B => _ => _
+    TargetX B => _ => _
         .Executes(() => { });
 
-    Target C => _ => _
+    TargetX C => _ => _
         // highlight-start
         .DependsOn(A, B)
         // highlight-end
@@ -163,16 +163,16 @@ The execution is always deterministic with `A->B->C`.
 ```csharp title="Build.cs"
 class Build : NukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         .Executes(() => { });
 
-    Target B => _ => _
+    TargetX B => _ => _
         // highlight-start
         .DependsOn(A)
         // highlight-end
         .Executes(() => { });
 
-    Target C => _ => _
+    TargetX C => _ => _
         // highlight-start
         .DependsOn(B)
         // highlight-end
@@ -199,10 +199,10 @@ class Build : NukeBuild
 {
     readonly List<string> Data = new();
 
-    Target A => _ => _
+    TargetX A => _ => _
         .Executes(() => { /* Populate Data */ });
 
-    Target B => _ => _
+    TargetX B => _ => _
         .DependsOn(A)
         // highlight-start
         .OnlyWhenDynamic(() => Data.Any())
@@ -219,10 +219,10 @@ Define a condition that is checked before target `A` and `B` execute:
 ```csharp
 class Build : NukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         .Executes(() => { });
 
-    Target B => _ => _
+    TargetX B => _ => _
         // highlight-start
         .OnlyWhenStatic(() => IsLocalBuild)
         // By default, dependencies are skipped
@@ -247,7 +247,7 @@ You can define target requirements that are checked right at the beginning of th
 ```csharp
 class Build : NukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         // highlight-start
         .Requires(() => IsServerBuild)
         // highlight-end
@@ -275,7 +275,7 @@ Define that execution continues after target `A` throws:
 ```csharp
 class Build : NukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         // highlight-start
         .ProceedAfterFailure()
         // highlight-end
@@ -284,7 +284,7 @@ class Build : NukeBuild
             Assert.Fail("error");
         });
 
-    Target B => _ => _
+    TargetX B => _ => _
         .DependsOn(A)
         .Executes(() => { });
 }
@@ -298,13 +298,13 @@ Define that target `B` executes even if another target fails:
 ```csharp
 class Build : NukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         .Executes(() =>
         {
             Assert.Fail("error");
         });
 
-    Target B => _ => _
+    TargetX B => _ => _
         // highlight-start
         .AssuredAfterFailure()
         // highlight-end
@@ -323,7 +323,7 @@ It is good practice to follow the [single-responsibility principle](https://en.w
 ```csharp
 class Build : NukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         // highlight-start
         .Unlisted()
         // highlight-end

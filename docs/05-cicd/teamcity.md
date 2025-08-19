@@ -18,7 +18,7 @@ You can access [predefined parameters](https://www.jetbrains.com/help/teamcity/p
 ```csharp
 TeamCity TeamCity => TeamCity.Instance;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("Branch = {Branch}", TeamCity.BranchName);
@@ -120,7 +120,7 @@ Whenever you make changes to the attribute, you have to [run the build](../01-ge
 If your targets produce artifacts, like packages or coverage reports, you can publish those directly from the target definition:
 
 ```csharp
-Target Pack => _ => _
+TargetX Pack => _ => _
     .Produces(PackagesDirectory / "*.nupkg")
     .Executes(() => { /* Implementation */ });
 ```
@@ -188,7 +188,7 @@ class Build : NukeBuild
 {
     TeamCity TeamCity => TeamCity.Instance;
 
-    Target Request => _ => _
+    TargetX Request => _ => _
         .Executes(() =>
         {
             Log.Information("UserId = {UserId}", TeamCity.AuthUserId);

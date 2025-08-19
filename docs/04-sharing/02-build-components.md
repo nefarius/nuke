@@ -18,13 +18,13 @@ classDiagram
     <<interface>> INukeBuild
 
     <<interface>> IPack
-    IPack : + Target Pack
+    IPack : + TargetX Pack
 
     <<interface>> ICompile
-    ICompile : + Target Compile
+    ICompile : + TargetX Compile
 
     <<interface>> ITest
-    ITest : + Target Test
+    ITest : + TargetX Test
 ```
 
 The component stubs from above can be translated into code as follows, whereas the `INukeBuild` base interface allows the components to use [build base properties](../02-fundamentals/04-builds.md#base-properties):
@@ -32,19 +32,19 @@ The component stubs from above can be translated into code as follows, whereas t
 ```csharp
 interface ICompile : INukeBuild
 {
-    Target Compile => _ => _
+    TargetX Compile => _ => _
         .Executes(() => { /* Implementation */ });
 }
 
 interface IPack : INukeBuild
 {
-    Target Pack => _ => _
+    TargetX Pack => _ => _
         .Executes(() => { /* Implementation */ });
 }
 
 interface ITest : INukeBuild
 {
-    Target Test => _ => _
+    TargetX Test => _ => _
         .Executes(() => { /* Implementation */ });
 }
 ```
@@ -114,7 +114,7 @@ You can define [dependencies](../02-fundamentals/05-targets.md#dependencies) bet
 ```csharp
 class Build : NukeBuild, IComponent
 {
-    Target MyTarget => _ => _
+    TargetX MyTargetX => _ => _
         .DependsOn<IComponent>(x => x.Target)
         .Executes(() =>
         {
@@ -129,7 +129,7 @@ When a build component only defines a single target, you can use the shorthand s
 ```csharp
 class Build : NukeBuild, IComponent
 {
-    Target MyTarget => _ => _
+    TargetX MyTargetX => _ => _
         .DependsOn<IComponent>()
         .Executes(() =>
         {
@@ -148,7 +148,7 @@ Apart from [regular dependencies](../02-fundamentals/05-targets.md#dependencies)
 ```csharp title="Build.cs"
 interface IComponent1 : INukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         // highlight-start
         .TryDependentFor<IComponent2>()      // Choose this...
         // highlight-end
@@ -157,7 +157,7 @@ interface IComponent1 : INukeBuild
 
 interface IComponent2 : INukeBuild
 {
-    Target B => _ => _
+    TargetX B => _ => _
         // highlight-start
         .TryDependsOn<IComponent1>()         // ...or this!
         // highlight-end
@@ -171,7 +171,7 @@ interface IComponent2 : INukeBuild
 ```csharp title="Build.cs"
 interface IComponent1 : INukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         // highlight-start
         .TryBefore<IComponent2>()            // Choose this...
         // highlight-end
@@ -180,7 +180,7 @@ interface IComponent1 : INukeBuild
 
 interface IComponent2 : INukeBuild
 {
-    Target B => _ => _
+    TargetX B => _ => _
         // highlight-start
         .TryAfter<IComponent1>()             // ...or this!
         // highlight-end
@@ -194,7 +194,7 @@ interface IComponent2 : INukeBuild
 ```csharp title="Build.cs"
 interface IComponent1 : INukeBuild
 {
-    Target A => _ => _
+    TargetX A => _ => _
         // highlight-start
         .TryTriggers<IComponent2>()          // Choose this...
         // highlight-end
@@ -203,7 +203,7 @@ interface IComponent1 : INukeBuild
 
 interface IComponent2 : INukeBuild
 {
-    Target B => _ => _
+    TargetX B => _ => _
         // highlight-start
         .TryTriggeredBy<IComponent1>()       // ...or this!
         // highlight-end
@@ -224,7 +224,7 @@ Another SOLID design principle that can be applied to build components is the [o
 ```csharp
 class Build : NukeBuild, IComponent
 {
-    Target IComponent.Target => _ => _
+    TargetX IComponent.TargetX => _ => _
         .Inherit<IComponent>()
         .Executes(() => { });
 }
@@ -236,7 +236,7 @@ class Build : NukeBuild, IComponent
 ```csharp
 class Build : NukeBuild, IComponent
 {
-    Target IComponent.Target => _ => _
+    TargetX IComponent.TargetX => _ => _
         .Executes(() => { });
 }
 ```
@@ -256,41 +256,41 @@ classDiagram
     ICompileWithMSBuild <|.. ICompile
 
     <<interface>> IRestore
-    IRestore : + Target Restore
+    IRestore : + TargetX Restore
 
     <<interface>> ICompile
-    ICompile : + Target Compile
+    ICompile : + TargetX Compile
 
     <<interface>> ICompileWithDotNet
-    ICompileWithDotNet : + Target Compile
+    ICompileWithDotNet : + TargetX Compile
 
     <<interface>> ICompileWithMSBuild
-    ICompileWithMSBuild : + Target Compile
+    ICompileWithMSBuild : + TargetX Compile
 ```
 
 ```csharp
 interface IRestore : INukeBuild
 {
-    Target Restore => _ => _
+    TargetX Restore => _ => _
         .Executes(() => { /* Implementation */ });
 }
 
 interface ICompile : INukeBuild
 {
-    Target Compile => _ => _
+    TargetX Compile => _ => _
         .TryDependsOn<IRestore>();
 }
 
 interface ICompileWithDotNet : ICompile
 {
-    Target ICompile.Compile => _ => _
+    TargetX ICompile.Compile => _ => _
         .Inherit<ICompile>()
         .Executes(() => { /* .NET CLI implementation */ });
 }
 
 interface ICompileWithMSBuild : ICompile
 {
-    Target ICompile.Compile => _ => _
+    TargetX ICompile.Compile => _ => _
         .Inherit<ICompile>()
         .Executes(() => { /* MSBuild implementation */ });
 }
@@ -301,7 +301,7 @@ Targets that follow later in the execution plan can now reference the implementa
 ```csharp
 class Build : NukeBuild, ICompileWithDotNet
 {
-    Target Pack => _ => _
+    TargetX Pack => _ => _
         .DependsOn<ICompile>()
         .Executes(() => { /* Implementation */ });
 }

@@ -17,7 +17,7 @@ You can access [predefined environment variables](https://docs.github.com/en/act
 ```csharp
 GitHubActions GitHubActions => GitHubActions.Instance;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("Branch = {Branch}", GitHubActions.Ref);
@@ -102,7 +102,7 @@ Whenever you make changes to the attribute, you have to [run the build](../01-ge
 If your targets produce artifacts, like packages or coverage reports, you can publish those directly from the target definition:
 
 ```csharp
-Target Pack => _ => _
+TargetX Pack => _ => _
     .Produces(PackagesDirectory / "*.nupkg")
     .Executes(() => { /* Implementation */ });
 ```
@@ -169,7 +169,7 @@ class Build : NukeBuild
 {
     GitHubActions GitHubActions => GitHubActions.Instance;
 
-    Target Request => _ => _
+    TargetX Request => _ => _
         .Executes(() =>
         {
             Log.Information("GitHub Token = {Token}", GitHubActions.Token);

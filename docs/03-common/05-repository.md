@@ -10,7 +10,7 @@ You can use the `GitRepositoryAttribute` on a `GitRepository` field or property,
 ```cs
 [GitRepository] readonly GitRepository Repository;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("Commit = {Value}", Repository.Commit);
@@ -36,13 +36,13 @@ Repository insights allow you to design your targets in a flexible manner using 
 [GitRepository] readonly GitRepository Repository;
 string OriginalRepositoryUrl => "https://github.com/nuke-build/nuke";
 
-Target Deploy => _ => _
+TargetX Deploy => _ => _
     .Requires(() => Repository.IsOnMainOrMasterBranch());
 
-Target CheckMilestone => _ => _
+TargetX CheckMilestone => _ => _
     .OnlyWhenStatic(() => Repository.HttpsUrl.EqualsOrdinalIgnoreCase(OriginalRepositoryUrl));
 
-Target Hotfix => _ => _
+TargetX Hotfix => _ => _
     .Executes(() =>
     {
         if (Repository.IsOnHotfixBranch())

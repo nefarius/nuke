@@ -24,7 +24,7 @@ nuke :add-package GitVersion.Tool
 [GitVersion]
 readonly GitVersion GitVersion;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("GitVersion = {Value}", GitVersion.MajorMinorPatch);
@@ -47,7 +47,7 @@ nuke :add-package Nerdbank.GitVersioning
 [NerdbankGitVersioning]
 readonly NerdbankGitVersioning NerdbankVersioning;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("NerdbankVersioning = {Value}", NerdbankVersioning.SimpleVersion);
@@ -70,7 +70,7 @@ nuke :add-package Octopus.OctoVersion.Tool
 [OctoVersion]
 readonly OctoVersionInfo OctoVersionInfo;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("OctoVersionInfo = {Value}", OctoVersionInfo.MajorMinorPatch);
@@ -93,7 +93,7 @@ nuke :add-package minver-cli
 [MinVer]
 readonly MinVer MinVer;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("MinVer = {Value}", MinVer.Version);
@@ -120,7 +120,7 @@ When your versioning is affected by external dependencies, NUKE provides another
     IncludePrerelease = true)]
 readonly NuGetVersion ReSharperVersion;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("ReSharperVersion = {Value}", ReSharperVersion);
@@ -136,7 +136,7 @@ Target Print => _ => _
     Pattern = @"v?(?<version>\d+\.\d+(?:\.\d+)?(?:\.\d+)?(?:-\w+)?)")] // default pattern
 readonly string GradlePluginVersion;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("GradlePluginVersion = {Value}", GradlePluginVersion);
@@ -152,7 +152,7 @@ Target Print => _ => _
     package: "rd-gen")]
 readonly string RdGenVersion;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("RdGenVersion = {Value}", RdGenVersion);
@@ -169,7 +169,7 @@ Target Print => _ => _
     artifactId: "org.jetbrains.kotlin.jvm.gradle.plugin")]
 readonly string KotlinJvmVersion;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("KotlinJvmVersion = {Value}", KotlinJvmVersion);

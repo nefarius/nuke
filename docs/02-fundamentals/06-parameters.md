@@ -91,7 +91,7 @@ You can specify a parameter as a [target requirement](../02-fundamentals/05-targ
 
 <!-- snippet: parameters-requirements -->
 ```cs
-Target Deploy => _ => _
+TargetX Deploy => _ => _
     .Requires(() => ApiKey)
     .Executes(() =>
     {
@@ -141,7 +141,7 @@ Parameters **support a wide range of primitive and complex types**, including th
 [Parameter] readonly Configuration Configuration;
 [Parameter] readonly AbsolutePath AbsolutePath;
 
-Target Print => _ => _
+TargetX Print => _ => _
     .Executes(() =>
     {
         Log.Information("StringValue = {Value}", StringValue);

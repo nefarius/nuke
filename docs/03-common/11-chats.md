@@ -14,7 +14,7 @@ You can send a [Slack](https://slack.com/) messages as follows:
 
 [Parameter] [Secret] readonly string SlackWebhook;
 
-Target Send => _ => _
+TargetX Send => _ => _
     .Executes(async () =>
     {
         await SendSlackMessageAsync(_ => _
@@ -37,7 +37,7 @@ You can send a [Microsoft Teams](https://www.microsoft.com/en/microsoft-teams/gr
 
 [Parameter] [Secret] readonly string TeamsWebhook;
 
-Target Send => _ => _
+TargetX Send => _ => _
     .Executes(async () =>
     {
         await SendTeamsMessageAsync(_ => _
@@ -59,7 +59,7 @@ You can send a [Twitter](https://twitter.com/) messages as follows:
 [Parameter] [Secret] readonly string TwitterAccessToken;
 [Parameter] [Secret] readonly string TwitterAccessTokenSecret;
 
-Target Send => _ => _
+TargetX Send => _ => _
     .Executes(async () =>
     {
         await SendTweetAsync(
@@ -86,7 +86,7 @@ You can send a [Gitter](https://gitter.im/) messages as follows:
 [Parameter] readonly string GitterRoomId;
 [Parameter] [Secret] readonly string GitterAuthToken;
 
-Target Send => _ => _
+TargetX Send => _ => _
     .Executes(() =>
     {
         SendGitterMessage(
